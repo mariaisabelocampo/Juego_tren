@@ -1,32 +1,47 @@
-# Prerequisites
-*.d
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+using namespace std;
 
-# Precompiled Headers
-*.gch
-*.pch
+class Descarte {
+public:
+    vector<char> cartas;
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+    void crearCartas() {
+        vector<char> colores = {'V', 'M', 'C', 'N', 'R', 'A'};
+        for (char color : colores) {
+            for (int i = 0; i < 12; ++i) {
+                cartas.push_back(color);
+            }
+        }
+    }
 
-# Fortran module files
-*.mod
-*.smod
+    void barajarCartas() {
+        random_device rd;
+        mt19937 g(rd());
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+        shuffle(cartas.begin(), cartas.end(), g);
+    }
 
-# Executables
-*.exe
-*.out
-*.app
+    void mostrarCartas() {
+        for (char carta : cartas) {
+            cout << carta << ' ';
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Descarte descarte;
+    descarte.crearCartas();
+    cout << "Cartas antes ¿:" << endl;
+    descarte.mostrarCartas();
+    
+    descarte.barajarCartas();
+    cout << "Cartas después :" << endl;
+    descarte.mostrarCartas();
+    
+    return 0;
+}
